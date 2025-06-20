@@ -13,7 +13,7 @@ __on_player_connects(player) -> (
 	if (has(global_cached_players, player_name),
 		e = global_cached_players:player_name;
 		if(e:'gm' == 'creative' && e:'fly' == 1,
-		// scheduling the modification at the end to ensure the entity was created properly and setting it to the intended state
+			// scheduling the modification at the end to ensure the entity was created properly and setting it to the intended state
 			schedule(0, _(e) -> (modify(player(e:'name'), 'flying', e:'fly')), e);
 		);
 	)
@@ -23,7 +23,6 @@ __on_player_disconnects(player, reason) -> (
 	player_name = player()~'name';
 
 	if (has(global_cached_players, player_name),
-		entry = global_cached_players:str(player_name);
 		global_cached_players:str(player_name) = null;
 	);
 );
