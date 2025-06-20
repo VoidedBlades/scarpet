@@ -26,20 +26,16 @@ __on_player_connects(player) -> (
 	)
 );
 
-__spawn_players() -> (
+__on_server_starts() -> (
    data = load_app_data();
    if (data && data:'players',
     	data = parse_nbt(data:'players');
 		
-	   for (data,
+	   	for (data,
 			global_cached_players:str(_:'name') = _;
 			run(str('player %s spawn at %f %f %f facing %f %f in %s in %s', _:'name', _:'x', _:'y', _:'z', _:'yaw', _:'pitch', _:'dim', _:'gm'))
 		);
    );
-);
-
-__on_server_starts() -> (
-  task('__spawn_players');
 );
 
 __on_server_shuts_down() -> (
