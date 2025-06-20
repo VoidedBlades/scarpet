@@ -4,9 +4,6 @@
 global_cached_players = {};
 
 __config() -> {
-	requires -> {
-		'minecraft' -> '>=1.8', // spectator was not a thing prior to 1.8
-	},
 	'scope' -> 'global'
 };
 
