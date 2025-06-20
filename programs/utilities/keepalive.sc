@@ -26,6 +26,17 @@ __on_player_connects(player) -> (
 	)
 );
 
+__on_player_disconnects(player, reason) -> (
+	player_name = player()~'name';
+
+   if (has(global_cached_players, player_name),
+      entry = global_cached_players:str(player_name);
+      logger('warn', str('%s %s', entry:'gm', entry:'fly'));
+
+      global_cached_players:str(player_name) = null;
+   );
+);
+
 __on_server_starts() -> (
    data = load_app_data();
    if (data && data:'players',
