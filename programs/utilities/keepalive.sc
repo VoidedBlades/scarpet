@@ -31,8 +31,6 @@ __on_player_disconnects(player, reason) -> (
 
    if (has(global_cached_players, player_name),
       entry = global_cached_players:str(player_name);
-      logger('warn', str('%s %s', entry:'gm', entry:'fly'));
-
       global_cached_players:str(player_name) = null;
    );
 );
