@@ -16,8 +16,8 @@ __on_player_connects(player) -> (
 
 	if (has(global_cached_players, player_name),
       e = global_cached_players:player_name;
-     if(e:'gm' == 'creative' && e:'fly' == 1,
-      // scheduling the modification at the end to ensure the entity was created properly and resetting it back to the intended gamemode
+      if(e:'gm' == 'creative' && e:'fly' == 1,
+      // scheduling the modification at the end to ensure the entity was created properly and setting it to the intended state
          schedule(0, _(e) -> (modify(player(e:'name'), 'flying', e:'fly')), e);
       );
 	)
