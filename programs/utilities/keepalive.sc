@@ -14,7 +14,7 @@ __on_connect(e) -> (
 	// forcing the fake-players that were spawned in spectator back into creative to retain flight per their data
 	if(e:'gm' == 'creative' && e:'fly' == 1,
 	// scheduling the modification at the end to ensure the entity was created properly and resetting it back to the intended gamemode
-		schedule(0, _(e) -> (modify(player(e:'name'), 'gamemode', e:'gm')), e);
+		schedule(0, _(e) -> (modify(player(e:'name'), 'flying', e:'fly')), e);
 	);
 );
 
@@ -33,14 +33,7 @@ __spawn_players() -> (
 		
 	   	for (data,
 			global_cached_players:str(_:'name') = _;
-
-			gamemode = _:'gm';
-			if (_:'gm' == 'creative' && _:'fly' == 1,
-				// spawning creative fake-players in spectator to force the flying state as using modify throws an error due to potential race conditions
-				gamemode = 'spectator'
-			);
-			
-			run(str('player %s spawn at %f %f %f facing %f %f in %s in %s', _:'name', _:'x', _:'y', _:'z', _:'yaw', _:'pitch', _:'dim', gamemode))
+			run(str('player %s spawn at %f %f %f facing %f %f in %s in %s', _:'name', _:'x', _:'y', _:'z', _:'yaw', _:'pitch', _:'dim', _:'gm'))
 		);
    );
 );
