@@ -10,19 +10,16 @@ __config() -> {
 	'scope' -> 'global'
 };
 
-__on_connect(e) -> (
-	// forcing the fake-players that were spawned in spectator back into creative to retain flight per their data
-	if(e:'gm' == 'creative' && e:'fly' == 1,
-	// scheduling the modification at the end to ensure the entity was created properly and resetting it back to the intended gamemode
-		schedule(0, _(e) -> (modify(player(e:'name'), 'flying', e:'fly')), e);
-	);
-);
 
 __on_player_connects(player) -> (
 	player_name = player()~'name';
 
 	if (has(global_cached_players, player_name),
-		task('__on_connect', global_cached_players:player_name)
+      e = global_cached_players:player_name;
+     if(e:'gm' == 'creative' && e:'fly' == 1,
+      // scheduling the modification at the end to ensure the entity was created properly and resetting it back to the intended gamemode
+         schedule(0, _(e) -> (modify(player(e:'name'), 'flying', e:'fly')), e);
+      );
 	)
 );
 
